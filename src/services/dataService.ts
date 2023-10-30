@@ -1,5 +1,6 @@
 import { Graph } from "@/types/Graph";
 import gldata from "@/data/topgainerloser.json";
+import suggData from "@/data/suggestion.json";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_DATA_URL;
 export type GainerLoserAPI = {
   change_amount: string;
@@ -7,6 +8,11 @@ export type GainerLoserAPI = {
   price: string;
   ticker: string;
   volume: string;
+};
+
+export type SearchSuggestion = {
+  symbol: string;
+  name: string;
 };
 export class DataService {
   public static async getCompanyStockData(Company: string): Promise<Graph[]> {
@@ -34,15 +40,22 @@ export class DataService {
     return topGainerLoserData;
   }
 
-  public static async getSearchSuggestions(keyword: string): Promise<any> {
+  public static async getSearchSuggestions(
+    keyword: string
+  ): Promise<SearchSuggestion[]> {
     const response = await fetch(
       `${BASE_URL}/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=demo`
     );
 
-    // const suggdata
+    return suggData.bestMatches.map((val: any) => {
+      return {
+        symbol: val["1. symbol"],
+        name: val["2. name"],
+      } as SearchSuggestion;
+    });
   }
 
-  public static async getCompanyInfo(symbol:string):Promise<any> {
+  public static async getCompanyInfo(symbol: string): Promise<any> {
     const response = await fetch(
       `${BASE_URL}/query?function=OVERVIEW&symbol=${symbol}&apikey=demo`
     );

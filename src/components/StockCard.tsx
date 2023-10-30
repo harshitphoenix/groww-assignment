@@ -1,7 +1,7 @@
 import { FaGoogle } from "react-icons/fa";
 import styles from "../styles/StockCard.module.css";
 import PriceStateIndicator from "./PriceStateIndicator";
-
+import tickerToName from "@/data/tickertoName.json";
 type StockCardProps = {
   name: string;
   price: string;
@@ -20,6 +20,7 @@ const StockCard = ({ change, name, price, onCardCliked }: StockCardProps) => {
           <PriceStateIndicator change={change} increase={true} price={price} />
         </div>
       </div>
+      {/* <p>{tickerToName[name]}</p> */}
       <p>{name}</p>
     </div>
   );
