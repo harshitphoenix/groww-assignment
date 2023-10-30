@@ -7,14 +7,14 @@ import styles from "@/styles/ProductPage.module.css";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 const ProductPage = () => {
-  const params = useParams();
-  console.log(params.compSymbol);
+  // const params = useParams();
+  // console.log(params.compSymbol);
 
-  const compData = useMemo(async () => {
-    const data = await DataService.getCompanyInfo(params.compSymbol as string);
-    const res = await data.json();
-    return res;
-  }, [params.compSymbol]);
+  // const compData = useMemo(async () => {
+  //   const data = await DataService.getCompanyInfo(params.compSymbol as string);
+  //   const res = await data.json();
+  //   return res;
+  // }, [params.compSymbol]);
   return (
     <Layout>
       <div className={styles.container}>
