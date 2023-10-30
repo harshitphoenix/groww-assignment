@@ -57,7 +57,7 @@ export default function Home() {
         />
       )}
 
-      <LoadMoreButton />
+      <LoadMoreButton onClick={()=>console.log()}/>
     </Layout>
   );
 }

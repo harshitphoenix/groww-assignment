@@ -12,8 +12,8 @@ const ProductPage = () => {
 
   const compData = useMemo(async () => {
     const data = await DataService.getCompanyInfo(params.compSymbol as string);
-
-    return data;
+    const res = await data.json();
+    return res;
   }, [params.compSymbol]);
   return (
     <Layout>
@@ -34,7 +34,7 @@ const ProductPage = () => {
         <StockGraph />
         {/* </div> */}
         {/* <div> */}
-        <AboutCompany />
+        {/* <AboutCompany company={compData} /> */}
         {/* </div> */}
       </div>
     </Layout>
