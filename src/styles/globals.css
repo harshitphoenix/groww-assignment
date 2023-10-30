@@ -1,4 +1,5 @@
 body {
+  --current-theme: 'light';
   --foreground: #1F1717;
   --background: #fff;
   --button-primary: #5367FF;
@@ -21,8 +22,19 @@ body.dark {
 
 @media (prefers-color-scheme: dark) {
   body {
+    --current-theme: 'dark';
     --background: #1F1717;
     --foreground: #FCF5ED;
+    --button-primary: #5367FF;
+    --button-secondary: #12D18E;
+    --border-color: #ccc;
+    /* --hor-pad: 20px; */
+    /* --vertical-pad: 10px; */
+  }
+
+  body.dark {
+    --foreground: #1F1717;
+    --background: #fff;
     --button-primary: #5367FF;
     --button-secondary: #12D18E;
     --border-color: #ccc;
