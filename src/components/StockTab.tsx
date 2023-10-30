@@ -12,11 +12,11 @@ const StockTab = ({ activeTab, data }: StockTabProps) => {
         {data.length > 0 &&
           data.map((val, index) => (
             <StockCard
-            onCardCliked={()=>console.log()}
+              key={`${index}-${val.ticker}`}
+              onCardCliked={() => console.log()}
               name={val.ticker}
               price={val.price}
               change={val.changeAmount}
-
             />
           ))}
         {/* <StockCard
