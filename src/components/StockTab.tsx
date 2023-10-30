@@ -4,8 +4,9 @@ import styles from "@/styles/StockTab.module.css";
 type StockTabProps = {
   activeTab: string;
   data: GainerOrLoser[];
+  cardClick: (val: string) => void;
 };
-const StockTab = ({ activeTab, data }: StockTabProps) => {
+const StockTab = ({ activeTab, data, cardClick }: StockTabProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.itemGrid}>
@@ -13,84 +14,12 @@ const StockTab = ({ activeTab, data }: StockTabProps) => {
           data.map((val, index) => (
             <StockCard
               key={`${index}-${val.ticker}`}
-              onCardCliked={() => console.log()}
+              onCardCliked={() => cardClick(val.ticker)}
               name={val.ticker}
               price={val.price}
               change={val.changeAmount}
             />
           ))}
-        {/* <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        />
-        <StockCard
-          onCardCliked={() => console.log()}
-          change="40%"
-          name="Relaince"
-          price="$123"
-        /> */}
       </div>
     </div>
   );

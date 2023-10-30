@@ -12,12 +12,14 @@ import TabSwitch from "@/components/TabSwitch";
 import { DataService } from "@/services/dataService";
 import { setTopGainers, setTopLosers } from "@/redux/homePageSlice";
 import { GainerLoserMapper } from "@/utils/stockGainerLoserMapper";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const Tabs = ["Top Gainers", "Top Losers"];
 export default function Home() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("Top Gainers");
   const gainers = useSelector((state: RootState) => state.home.topGainers);
@@ -26,6 +28,11 @@ export default function Home() {
   const handleTabSwitch = (tab: string) => {
     setLoading(true);
     setActiveTab(tab);
+  };
+
+  const handleStockCardClick = (symbol: string) => {
+    console.log("symbol", symbol);
+    router.push(`/product/${symbol}`);
   };
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export default function Home() {
         setLoading(false);
       });
   }, [activeTab]);
-  console.log("gainers", activeTab);
+
   return (
     <Layout>
       <TabSwitch tabs={Tabs} activeTab={activeTab} onSwitch={handleTabSwitch} />
@@ -52,12 +59,13 @@ export default function Home() {
         "Loading"
       ) : (
         <StockTab
+          cardClick={handleStockCardClick}
           activeTab={activeTab}
           data={activeTab === "Top Gainer" ? gainers : loser}
         />
       )}
 
-      <LoadMoreButton onClick={()=>console.log()}/>
+      <LoadMoreButton onClick={() => console.log()} />
     </Layout>
   );
 }

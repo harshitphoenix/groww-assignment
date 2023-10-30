@@ -32,13 +32,13 @@ const SearchBar = () => {
         type="text"
         placeholder="Search stock & etfs"
       />
-      {/* <div className={styles.suggestions}>
+      <div className={styles.suggestions}>
         {comp.map((val, index) => (
           <p className={styles.suggestionItems} key={`${index}-${val}`}>
             {val}
           </p>
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };
