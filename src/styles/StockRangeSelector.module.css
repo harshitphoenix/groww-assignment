@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 9px;
+    padding: 10px 5px;
+    width: 50%;
+    border: 1px solid var(--border-color);
+}
+
+.filterBtn {
+    background-color: var(--background);
+    color: var(--foreground);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+}

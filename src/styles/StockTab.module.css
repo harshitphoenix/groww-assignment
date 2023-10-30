@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+}
+
+.itemGrid {
+    display: grid;
+    width: 100%;
+    /* border: 1px solid green; */
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
+    grid-gap: 1rem;
+    /* margin: 10px 0; */
+}

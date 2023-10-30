@@ -1,0 +1,69 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 10 0px;
+    /* box-shadow: 0 1px 9px rgba(0, 0, 0, 0.8); */
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--vertical-pad) var(--hor-pad);
+}
+
+.compDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin: 10px 0 0 0;
+    padding: var(--vertical-pad) var(--hor-pad);
+}
+
+.compTags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--vertical-pad) var(--hor-pad);
+}
+
+.priceLimitContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--vertical-pad) var(--hor-pad);
+
+}
+
+.priceLimit {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    border: 1px solid red;
+}
+
+.pricePoint {
+    font-weight: 600;
+}
+
+.compMeta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--vertical-pad) var(--hor-pad);
+}

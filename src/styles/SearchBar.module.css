@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    align-items: center;
+    background-color: var(--background);
+    min-width: 500px;
+    width: 50%;
+    max-width: 900px;
+    height: 40px;
+    border-radius: 90px;
+    padding: 0 10px;
+
+}
+
+.container input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0 10px;
+    color: var(--foreground);
+    background-color: var(--background);
+}
+
+.suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    background-color: var(--background);
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    min-width: 450px;
+    width: 45%;
+    max-width: 900px;
+    /* padding: 10px 0; */
+    position: absolute;
+    top: 50px;
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.suggestions::-webkit-scrollbar {
+    width: 5px;
+    /* background-color: var(--foreground); */
+}
+.suggestions::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 5px;
+}
+.suggestionItems {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+    /* transition: all 0.2s ease-in-out; */
+
+}
+
+.suggestionItems:hover {
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+.container .searchIcon {
+    color: #555;
+    font-size: 20px;
+    margin-right: 10px;
+}
