@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,8 +15,9 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { ReactQueryKeys } from "@/constants/reactQueryKeys";
 import { Spinner } from "@chakra-ui/react";
-import {  setCompanyHeaderData } from "@/redux/companyPageSlice";
+import { setCompanyHeaderData } from "@/redux/companyPageSlice";
 import { CompanyStock } from "@/types/CompanyInfo";
+import ErrorMessage from "@/components/ErrorMessage";
 
 const Tabs = ["Top Gainers", "Top Losers"];
 
@@ -25,6 +25,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
+  const [apiLimitReached, setApiLimitReached] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("Top Gainers");
   const topgainers = useSelector((state: RootState) => state.home.topGainers);
   const toploser = useSelector((state: RootState) => state.home.topLosers);
@@ -66,17 +67,21 @@ export default function Home() {
     }
   };
 
-
   useEffect(() => {
     DataService.getTopGainersAndLoosers()
       .then((res) => {
-        const gainers = GainerLoserMapper(res.top_gainers);
-        const losers = GainerLoserMapper(res.top_losers);
-        if (topgainers.length === 0) {
-          dispatch(setTopGainers(gainers));
-        }
-        if (toploser.length === 0) {
-          dispatch(setTopLosers(losers));
+        console.log(res)
+        if (res.hasOwnProperty("Information")) {
+          setApiLimitReached(true);
+        } else {
+          const gainers = GainerLoserMapper(res.top_gainers);
+          const losers = GainerLoserMapper(res.top_losers);
+          if (topgainers.length === 0) {
+            dispatch(setTopGainers(gainers));
+          }
+          if (toploser.length === 0) {
+            dispatch(setTopLosers(losers));
+          }
         }
       })
       .catch((err) => {
@@ -95,11 +100,14 @@ export default function Home() {
           <Spinner
             alignSelf={"center"}
             alignItems={"center"}
-            size={"lg"}
-            width={40}
-            height={40}
+            width={140}
+            height={140}
+            color="#12D18E"
           />
         </div>
+      ) : (topgainers.length === 0 && toploser.length === 0) ||
+        apiLimitReached ? (
+        <ErrorMessage msg="Sorry, but we've reached our API limit for the day. We appreciate your enthusiasm! Please check back tomorrow to access our services again" />
       ) : (
         <>
           <StockTab
