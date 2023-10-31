@@ -8,6 +8,7 @@ body {
   --hor-pad: 20px;
   --vertical-pad: 10px;
   --vertical-mar:20px
+  /* font-family: "popins"; */
 }
 
 body.dark {
