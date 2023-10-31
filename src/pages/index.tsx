@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-// import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { RootState, store } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, } from "@/redux/store";
 import LoadMoreButton from "@/components/LoadMore";
 import { useEffect, useState } from "react";
 import StockTab from "@/components/StockTab";
@@ -15,6 +15,7 @@ import { GainerLoserMapper } from "@/utils/stockGainerLoserMapper";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { ReactQueryKeys } from "@/constants/reactQueryKeys";
+import { Spinner } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -63,7 +64,6 @@ export default function Home() {
     }
   };
 
-  console.log("topgainers", topgainers);
   useEffect(() => {
     // const {res} = useQuery(ReactQueryKeys.TopGainersAndLosers, () => DataService.getTopGainersAndLoosers());
     // console.log(res);
@@ -71,11 +71,15 @@ export default function Home() {
     // dispatch(setTopGainers(res.top_gainers));
     DataService.getTopGainersAndLoosers()
       .then((res) => {
-        console.log("res", res);
         const gainers = GainerLoserMapper(res.top_gainers);
         const losers = GainerLoserMapper(res.top_losers);
-        dispatch(setTopLosers(losers));
-        dispatch(setTopGainers(gainers));
+        if(topgainers.length===0){
+          dispatch(setTopGainers(gainers));
+        }
+        if(toploser.length===0){
+          dispatch(setTopLosers(losers));
+        }
+        
       })
       .catch((err) => {
         console.error(err);
@@ -89,16 +93,25 @@ export default function Home() {
     <Layout>
       <TabSwitch tabs={Tabs} activeTab={activeTab} onSwitch={handleTabSwitch} />
       {loading ? (
-        "Loading"
+        <div className={styles.spinner}>
+          <Spinner
+            alignSelf={"center"}
+            alignItems={"center"}
+            size={"lg"}
+            width={40}
+            height={40}
+          />
+        </div>
       ) : (
-        <StockTab
-          cardClick={handleStockCardClick}
-          activeTab={activeTab}
-          data={activeTab === "Top Gainers" ? topgainers : toploser}
-        />
+        <>
+          <StockTab
+            cardClick={handleStockCardClick}
+            activeTab={activeTab}
+            data={activeTab === "Top Gainers" ? topgainers : toploser}
+          />
+          <LoadMoreButton onClick={handleLoadMoreClick} />
+        </>
       )}
-
-      <LoadMoreButton onClick={handleLoadMoreClick} />
     </Layout>
   );
 }

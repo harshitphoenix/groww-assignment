@@ -16,8 +16,9 @@ const comp = [
 ];
 const SearchBar = () => {
   const [search, setSearch] = useState("");
-  const searchBarRef = useRef<HTMLInputElement>(null);
   const suggestionRef = useRef<HTMLDivElement>(null);
+  const searchBarRef = useRef<HTMLInputElement>(null);
+
   const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([]);
 
   const debounceSearch = debounce(() => {
@@ -28,7 +29,6 @@ const SearchBar = () => {
   }, 300);
 
   const handleSuggestionClick = (symbol: string) => {
-    console.log("symbol", symbol);
     setSuggestions([]);
   };
 
