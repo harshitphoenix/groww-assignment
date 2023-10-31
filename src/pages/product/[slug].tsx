@@ -10,11 +10,12 @@ const ProductPage = () => {
   // const params = useParams();
   // console.log(params.compSymbol);
 
-  // const compData = useMemo(async () => {
-  //   const data = await DataService.getCompanyInfo(params.compSymbol as string);
-  //   const res = await data.json();
-  //   return res;
-  // }, [params.compSymbol]);
+  const compData = useMemo(async () => {
+    const data = await DataService.getCompanyInfo("slkj" as string);
+    // const res =await data.json();
+    return data;
+  }, []);
+  
   return (
     <Layout>
       <div className={styles.container}>
@@ -34,7 +35,7 @@ const ProductPage = () => {
         <StockGraph />
         {/* </div> */}
         {/* <div> */}
-        {/* <AboutCompany company={compData} /> */}
+        <AboutCompany  />
         {/* </div> */}
       </div>
     </Layout>

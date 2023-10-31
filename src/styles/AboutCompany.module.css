@@ -37,6 +37,9 @@
     justify-content: flex-start;
     padding: var(--vertical-pad) var(--hor-pad);
 }
+.compTags > * {
+    margin: 0 5px 5px 0;
+}
 
 .priceLimitContainer {
     display: flex;
@@ -52,7 +55,7 @@
     display: flex;
     flex-direction: column;
     width: max-content;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .pricePoint {

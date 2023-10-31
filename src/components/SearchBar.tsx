@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "../styles/SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
 import { debounce } from "@/utils/debounceSearch";
@@ -16,6 +16,8 @@ const comp = [
 ];
 const SearchBar = () => {
   const [search, setSearch] = useState("");
+  const searchBarRef = useRef<HTMLInputElement>(null);
+  const suggestionRef = useRef<HTMLDivElement>(null);
   const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([]);
 
   const debounceSearch = debounce(() => {
@@ -34,9 +36,9 @@ const SearchBar = () => {
     setSearch(e.target.value);
     debounceSearch(e.target.value);
   };
-
+  console.log(searchBarRef?.current?.clientWidth);
   return (
-    <div className={styles.container}>
+    <div ref={searchBarRef} className={styles.container}>
       <FaSearch />
       <input
         value={search}
@@ -45,9 +47,17 @@ const SearchBar = () => {
         placeholder="Search stock & etfs"
       />
       {suggestions.length > 0 && (
-        <div className={styles.suggestions}>
+        <div
+          style={{ width: searchBarRef?.current?.clientWidth }}
+          ref={suggestionRef}
+          className={styles.suggestions}
+        >
           {suggestions.map((val, index) => (
-            <div onClick={()=>handleSuggestionClick(val.symbol)} className={styles.suggestionItems} key={`${index}-${val}`}>
+            <div
+              onClick={() => handleSuggestionClick(val.symbol)}
+              className={styles.suggestionItems}
+              key={`${index}-${val}`}
+            >
               {val?.name} ({val?.symbol})
             </div>
           ))}

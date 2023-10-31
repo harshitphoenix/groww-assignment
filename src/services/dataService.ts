@@ -1,7 +1,10 @@
 import { Graph } from "@/types/Graph";
 import gldata from "@/data/topgainerloser.json";
 import suggData from "@/data/suggestion.json";
+import compInfo from "@/data/compInfo.json";
+import { AboutCompany } from "@/components/AboutCompany";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_DATA_URL;
+
 export type GainerLoserAPI = {
   change_amount: string;
   change_percentage: string;
@@ -55,11 +58,11 @@ export class DataService {
     });
   }
 
-  public static async getCompanyInfo(symbol: string): Promise<any> {
+  public static async getCompanyInfo(symbol: string): Promise<AboutCompany> {
     const response = await fetch(
       `${BASE_URL}/query?function=OVERVIEW&symbol=${symbol}&apikey=demo`
     );
-
+  
     const data = await response.json();
 
     return data;
