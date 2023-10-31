@@ -6,8 +6,9 @@ import grphData from "@/data/company.json";
 import intrday from "@/data/companyIntraDay.json";
 import { AboutCompanyType } from "@/types/CompanyInfo";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_DATA_URL;
-const API_KEY = process.env.NEXT_PUBLIC_DATA_API_KEY;
+const BASE_URL = "https://www.alphavantage.co";
+const API_KEY = "OS8UKBIDZP6TN0UA";
+
 export type GainerLoserAPI = {
   change_amount: string;
   change_percentage: string;
