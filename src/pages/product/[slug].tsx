@@ -19,6 +19,7 @@ const ProductPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState({ found: false, msg: "" });
   const [apiLimitReached, setApiLimitReached] = useState(false);
   const [activeRange, setActiveRange] = useState("1D");
   const company: AboutCompanyType | null = useSelector(
@@ -27,7 +28,6 @@ const ProductPage = () => {
   const companyMeta = useSelector(
     (state: RootState) => state.company.companyHeaderData
   );
-
   const graphData = useSelector((state: RootState) => state.company.graphData);
 
   const handleRangeChange = (val: string) => {
@@ -45,8 +45,12 @@ const ProductPage = () => {
           }
         }
       );
+    }
+  }, [router.query.slug]);
 
-      DataService.getCompanyStockData(router.query.slug as string, "1D")
+  useEffect(() => {
+    if (router.query.slug) {
+      DataService.getCompanyStockData(router.query.slug as string, activeRange)
         .then((data) => {
           if (!data || data.hasOwnProperty("Information")) {
             setApiLimitReached(true);
@@ -56,12 +60,13 @@ const ProductPage = () => {
         })
         .catch((err) => {
           console.log(err);
+          setError({ found: true, msg: err });
         })
         .finally(() => {
           setLoading(false);
         });
     }
-  }, [router.query.slug]);
+  }, [activeRange, router.query.slug]);
 
   return (
     <Layout>
@@ -98,11 +103,14 @@ const ProductPage = () => {
         </div>
       ) : apiLimitReached ? (
         <ErrorMessage msg="Sorry, but we've reached our API limit for the day. We appreciate your enthusiasm! Please check back tomorrow to access our services again." />
+      ) : error.found ? (
+        <ErrorMessage msg={"Invalid API Call"} />
       ) : (
         <CompanyNotFound />
       )}
     </Layout>
   );
-};width: ;
+};
+width:;
 
 export default ProductPage;

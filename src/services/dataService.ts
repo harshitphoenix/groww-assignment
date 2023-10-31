@@ -33,7 +33,9 @@ export class DataService {
       response = await fetch(
         `${BASE_URL}/query?function=TIME_SERIES_INTRADAY&symbol=${Company}&interval=5min&outputsize=full&apikey=${API_KEY}`
       );
-
+      if (response.hasOwnProperty("Error Message")) {
+        throw Error("Invalid API Call");
+      }
       const data = (await response.json())["Time Series (5min)"];
       // const data = intrday["Time Series (5min)"] as Record<
       //   string,
@@ -55,6 +57,9 @@ export class DataService {
       response = await fetch(
         `${BASE_URL}/query?function=TIME_SERIES_DAILY&symbol=${Company}&outputsize=full&apikey=${API_KEY}`
       );
+      if (response.hasOwnProperty("Error Message")) {
+        throw Error("Invalid API Call");
+      }
       const data = (await response.json())["Time Series (Daily)"];
       // const data = grphData["Time Series (Daily)"] as Record<
       //   string,
