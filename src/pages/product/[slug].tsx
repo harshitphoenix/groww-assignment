@@ -103,6 +103,6 @@ const ProductPage = () => {
       )}
     </Layout>
   );
-};
+};width: ;
 
 export default ProductPage;

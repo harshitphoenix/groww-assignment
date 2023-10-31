@@ -73,6 +73,16 @@
     /* transition: all 0.2s ease-in-out; */
 
 }
+.apiLimitReached{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--background);
+}
 
 .suggestionItems:first-child {
     border-top-left-radius: 5px;

@@ -22,9 +22,7 @@ const SearchBar = () => {
     DataService.getSearchSuggestions(search).then((res) => {
       console.log(res);
       if (res.hasOwnProperty("Information")) {
-        setSuggestions([
-          { symbol: "", name: "We've reached our API limit for the day." },
-        ]);
+        setSuggestions([]);
         setApiLimitReached(true);
         return;
       }
@@ -101,8 +99,13 @@ const SearchBar = () => {
             ref={suggestionRef}
             className={styles.suggestions}
           >
-            {suggestions.length === 0 && (
-              <div className={styles.suggestionItems}>No results found</div>
+            {apiLimitReached && (
+              <div className={styles.apiLimitReached}>
+                We've reached our API limit for the day.
+              </div>
+            )}
+            {!apiLimitReached && suggestions.length === 0 && (
+              <div className={styles.apiLimitReached}>No results found</div>
             )}
             {suggestions.length > 0 &&
               suggestions.map((val, index) => (
@@ -111,7 +114,7 @@ const SearchBar = () => {
                   className={styles.suggestionItems}
                   key={`${index}-${val}`}
                 >
-                  {val?.name} {val?.symbol?(val?.symbol):""}
+                  {val?.name} {val?.symbol ? val?.symbol : ""}
                 </div>
               ))}
           </div>
