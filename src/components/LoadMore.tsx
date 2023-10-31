@@ -9,11 +9,9 @@ const LoadMoreButton = ({ onClick }: LoadMoreButtonProps) => {
   };
 
   return (
-    <div className={styles.container}>
-      <button onClick={handleClick} className={styles.btn}>
-        Load More
-      </button>
-      <FaAngleDoubleDown size={30} />
+    <div onClick={handleClick} className={styles.container}>
+      <p className={styles.btn}>Load More</p>
+      <FaAngleDoubleDown size={20} />
     </div>
   );
 };

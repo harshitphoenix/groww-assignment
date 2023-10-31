@@ -4,15 +4,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin: 20px 0 ;
     color: var(--button-secondary);
+    cursor: pointer;
 }
 
 .btn {
-    cursor: pointer;
-    background-color: var(--button-secondary);
-    color: var(--foreground);
+    /* background-color: var(--button-secondary); */
+    /* color: var(--foreground); */
     padding: var(--vertical-pad) var(--hor-pad);
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
