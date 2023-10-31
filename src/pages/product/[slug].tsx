@@ -94,7 +94,7 @@ const ProductPage = () => {
             <AboutCompany company={company} />
           </div>
         </div>
-      ) : !apiLimitReached ? (
+      ) : apiLimitReached ? (
         <ErrorMessage msg="Sorry, but we've reached our API limit for the day. We appreciate your enthusiasm! Please check back tomorrow to access our services again" />
       ) : (
         <CompanyNotFound />
