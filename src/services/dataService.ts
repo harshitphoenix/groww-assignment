@@ -34,11 +34,11 @@ export class DataService {
         `${BASE_URL}/query?function=TIME_SERIES_INTRADAY&symbol=${Company}&outputsize=full&apikey=${API_KEY}`
       );
 
-      // const data = (await response.json())["Time Series (5min)"];
-      const data = intrday["Time Series (5min)"] as Record<
-        string,
-        Record<string, string>
-      >;
+      const data = (await response.json())["Time Series (5min)"];
+      // const data = intrday["Time Series (5min)"] as Record<
+      //   string,
+      //   Record<string, string>
+      // >;
       result = Object.keys(data).map((key) => ({
         date: key,
         open: parseFloat(data[key]["1. open"]),
@@ -55,11 +55,11 @@ export class DataService {
       response = await fetch(
         `${BASE_URL}/query?function=TIME_SERIES_DAILY&symbol=${Company}&outputsize=full&apikey=${API_KEY}`
       );
-      // const data = (await response.json())["Time Series (Daily)"];
-      const data = grphData["Time Series (Daily)"] as Record<
-        string,
-        Record<string, string>
-      >;
+      const data = (await response.json())["Time Series (Daily)"];
+      // const data = grphData["Time Series (Daily)"] as Record<
+      //   string,
+      //   Record<string, string>
+      // >;
       result = Object.keys(data).map((key) => ({
         date: key,
         open: parseFloat(data[key]["1. open"]),
@@ -79,8 +79,7 @@ export class DataService {
     );
     const topGainerLoserData = gldata;
     const data = await response.json();
-    // return data;
-    return topGainerLoserData;
+    return data;
   }
 
   public static async getSearchSuggestions(
@@ -89,8 +88,9 @@ export class DataService {
     const response = await fetch(
       `${BASE_URL}/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${API_KEY}`
     );
-
-    return suggData.bestMatches.map((val: any) => {
+    
+    const data = await response.json();
+    return data.bestMatches.map((val: any) => {
       return {
         symbol: val["1. symbol"],
         name: val["2. name"],
@@ -104,7 +104,7 @@ export class DataService {
     const response = await fetch(
       `${BASE_URL}/query?function=OVERVIEW&symbol=${symbol}&apikey=${API_KEY}`
     );
-    console.log("comp", response);
+    
     const data = await response.json();
 
     return data;
