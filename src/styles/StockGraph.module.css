@@ -11,9 +11,9 @@
 }
 
 .chart {
-    max-width: 400px;
-    max-height: 300px;
-    width: 100%;
+    max-width: 800px;
+    max-height: 600px;
+    /* width: 400rem; */
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-color);
 }
