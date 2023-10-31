@@ -1,9 +1,9 @@
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 import styles from "@/styles/PriceStateIndicator.module.css";
 type PriceStateIndicatorProps = {
-  change: string;
-  increase: boolean;
-  price: string;
+  change?: string;
+  increase?: boolean;
+  price?: string;
 };
 
 const PriceStateIndicator = ({

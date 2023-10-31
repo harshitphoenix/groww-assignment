@@ -2,25 +2,14 @@ import Image from "next/image";
 import styles from "@/styles/CompanyPageHeader.module.css";
 import PriceStateIndicator from "./PriceStateIndicator";
 import { FaAppStore, FaFacebook } from "react-icons/fa";
+import { CompanyPageHeader } from "@/types/CompanyInfo";
 type CompanyPageHeaderProps = {
-  companyName: string;
-  companyDescription: string;
-  companySymbol: string;
-  exchange: string;
-  price: string;
-  change: string;
-  increase: boolean;
+  companyMeta?: CompanyPageHeader;
+  name:string;
+  compAddress?:string
 };
 
-const CompanyPageHeader = ({
-  change,
-  companyDescription,
-  companyName,
-  companySymbol,
-  exchange,
-  increase,
-  price,
-}: CompanyPageHeaderProps) => {
+const CompanyPageHeader = ({ companyMeta, name, compAddress }: CompanyPageHeaderProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
@@ -28,16 +17,17 @@ const CompanyPageHeader = ({
           <FaFacebook size={50} />
         </div>
         <div>
-          <p>{companyName}</p>
-          <p>{companyDescription}</p>
-          <p>{exchange}</p>
+          <p>{name}</p>
+          <p>{compAddress}</p>
+          <p>{companyMeta?.companyDescription}</p>
+          <p>{companyMeta?.exchange}</p>
         </div>
       </div>
       <div>
         <PriceStateIndicator
-          price={price}
-          increase={increase}
-          change={change}
+          price={companyMeta?.price}
+          increase={!companyMeta?.changePercent.includes("-")}
+          change={companyMeta?.changePercent}
         />
       </div>
     </div>

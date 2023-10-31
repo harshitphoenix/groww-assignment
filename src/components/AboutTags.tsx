@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styles from "@/styles/AboutTags.module.css";
 type AboutTagsProps = {
-  lable: string;
-  tags: string;
+  lable?: string;
+  tags?: string;
 };
 const AboutTags = ({ lable, tags }: AboutTagsProps) => {
   return (

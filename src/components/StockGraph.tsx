@@ -1,64 +1,65 @@
 import { DataService } from "@/services/dataService";
 import { Graph } from "@/types/Graph";
 import { CChartLine } from "@coreui/react-chartjs";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "@/styles/StockGraph.module.css";
 import StockGraphRangeSelector from "./StockGraphRangeSelector";
-const range = ["1D", "1W", "1M", "3M", "6M", "1Y", "2Y", "5Y", "All"];
+const range = ["1D", "1W", "1M", "1Y"];
 
-const StockGraph = () => {
-  const [graphData, setGraphData] = useState<Graph[]>([]);
-  useEffect(() => {
-    DataService.getCompanyStockData("RELIANCE.BSE")
-      .then((data) => {
-        setGraphData(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    DataService.getTopGainersAndLoosers()
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+type StockGraphProps = {
+  symbol: string;
+  adjustment: string;
+  graphData?: Graph[];
+  activeRange:string
+  changeActiveRange?: (val: string) => void;
+};
+const StockGraph = ({ adjustment, symbol, graphData, activeRange, changeActiveRange }: StockGraphProps) => {
+  
+  const xAxes = useMemo(() => {
+    let temp = graphData?.map((val) => val.date).slice(0, 30);
+    if (activeRange === "1M") {
+      temp = temp?.slice(0, 30);
+    } else if (activeRange === "1Y") {
+      temp = temp?.slice(0, 365);
+    }
+    return temp;
+  }, [activeRange]);
+
+  const yAxes = useMemo(() => {
+    let temp = graphData?.map((val) => val.high);
+    if (activeRange === "1M") {
+      temp = temp?.slice(0, 30);
+    } else if (activeRange === "1Y") {
+      temp = temp?.slice(0, 365);
+    }
+    return temp;
+  }, [activeRange]);
+
 
   return (
     <div className={styles.container}>
-      <p>Stocks</p>
       <CChartLine
         className={styles.chart}
         // type="line"
         data={{
-          labels: [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-          ],
+          labels: xAxes,
           datasets: [
             {
-              label: "My First dataset",
+              label: "Stock Prices (High)",
               backgroundColor: "rgba(220, 220, 220, 0.2)",
               borderColor: "rgba(220, 220, 220, 1)",
               pointBackgroundColor: "rgba(220, 220, 220, 1)",
               pointBorderColor: "#fff",
-              data: [40, 20, 12, 39, 10, 40, 39, 80, 40],
+              data: [...(yAxes ?? [])],
             },
-            {
-              label: "My Second dataset",
-              backgroundColor: "rgba(151, 187, 205, 0.2)",
-              borderColor: "rgba(151, 187, 205, 1)",
-              pointBackgroundColor: "rgba(151, 187, 205, 1)",
-              pointBorderColor: "#fff",
-              data: [50, 12, 28, 29, 7, 25, 12, 70, 60],
-            },
+            // {
+            //   label: "My Second dataset",
+            //   backgroundColor: "rgba(151, 187, 205, 0.2)",
+            //   borderColor: "rgba(151, 187, 205, 1)",
+            //   pointBackgroundColor: "rgba(151, 187, 205, 1)",
+            //   pointBorderColor: "#fff",
+            //   data: [50, 12, 28, 29, 7, 25, 12, 70, 60],
+            // },
           ],
         }}
         // options={{
@@ -89,7 +90,11 @@ const StockGraph = () => {
         //   },
         // }}
       />
-      <StockGraphRangeSelector range={range} />
+      <StockGraphRangeSelector
+        activeRange={activeRange}
+        range={range}
+        onChange={changeActiveRange}
+      />
     </div>
   );
 };

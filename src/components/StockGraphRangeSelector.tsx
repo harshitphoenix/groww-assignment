@@ -3,6 +3,7 @@ import styles from "@/styles/StockRangeSelector.module.css";
 type StockGraphRangeSelectorProps = {
   onChange?: (val: string) => void;
   range: string[];
+  activeRange?: string;
 };
 
 const StockGraphRangeSelector = ({

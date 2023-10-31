@@ -1,11 +1,12 @@
 import { GainerOrLoser } from "@/types/Stock";
 import StockCard from "./StockCard";
 import styles from "@/styles/StockTab.module.css";
+import { CompanyStock } from "@/types/CompanyInfo";
 
 type StockTabProps = {
   activeTab: string;
-  data: GainerOrLoser[];
-  cardClick: (val: string) => void;
+  data: CompanyStock[];
+  cardClick: (val: CompanyStock) => void;
 };
 
 const StockTab = ({ activeTab, data, cardClick }: StockTabProps) => {
@@ -17,10 +18,9 @@ const StockTab = ({ activeTab, data, cardClick }: StockTabProps) => {
           data.map((val, index) => (
             <StockCard
               key={`${index}-${val.ticker}`}
-              onCardCliked={() => cardClick(val.ticker)}
+              onCardCliked={() => cardClick(val)}
               name={val.ticker}
-              price={val.price}
-              change={val.changeAmount}
+              stock={val}
             />
           ))}
       </div>

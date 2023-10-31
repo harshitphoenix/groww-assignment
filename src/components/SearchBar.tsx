@@ -68,7 +68,7 @@ const SearchBar = () => {
   }, []);
   return (
     <div ref={searchBarRef} className={styles.container}>
-      <div>
+      <div className={styles.parentContainer}>
         <div className={styles.searchBarContainer}>
           <FaSearch />
           <input

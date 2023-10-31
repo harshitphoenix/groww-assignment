@@ -1,8 +1,8 @@
 import styles from "@/styles/AboutMeta.module.css";
 
 type AboutMetaProps = {
-  label: string;
-  value: string;
+  label?: string;
+  value?: string;
 };
 
 const AboutMeta = ({ label, value }: AboutMetaProps) => {

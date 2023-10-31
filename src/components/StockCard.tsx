@@ -2,14 +2,14 @@ import { FaGoogle } from "react-icons/fa";
 import styles from "../styles/StockCard.module.css";
 import PriceStateIndicator from "./PriceStateIndicator";
 import tickerToName from "@/data/tickertoName.json";
+import { CompanyStock } from "@/types/CompanyInfo";
 type StockCardProps = {
+  stock: CompanyStock;
   name: string;
-  price: string;
-  change: string;
   onCardCliked: () => void;
 };
-const StockCard = ({ change, name, price, onCardCliked }: StockCardProps) => {
-  const isPriceIncreased = change.includes("-");
+const StockCard = ({ stock, name, onCardCliked }: StockCardProps) => {
+  const isPriceIncreased = stock.changePercent.includes("-");
   return (
     <div className={styles.container} onClick={onCardCliked}>
       <div className={styles.cardTop}>
@@ -20,9 +20,9 @@ const StockCard = ({ change, name, price, onCardCliked }: StockCardProps) => {
       </div>
       <div className={styles.bottom}>
         <PriceStateIndicator
-          change={change}
+          change={stock.changePercent}
           increase={!isPriceIncreased}
-          price={price}
+          price={stock.price}
         />
       </div>
       {/* <p>{tickerToName[name]}</p> */}

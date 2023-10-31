@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, } from "@/redux/store";
+import { RootState } from "@/redux/store";
 import LoadMoreButton from "@/components/LoadMore";
 import { useEffect, useState } from "react";
 import StockTab from "@/components/StockTab";
@@ -16,10 +16,13 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { ReactQueryKeys } from "@/constants/reactQueryKeys";
 import { Spinner } from "@chakra-ui/react";
+import { setCompany, setCompanyHeaderData } from "@/redux/companyPageSlice";
+import { CompanyStock } from "@/types/CompanyInfo";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const Tabs = ["Top Gainers", "Top Losers"];
+
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -33,9 +36,10 @@ export default function Home() {
     setActiveTab(tab);
   };
 
-  const handleStockCardClick = (symbol: string) => {
+  const handleStockCardClick = (symbol: CompanyStock) => {
     console.log("symbol", symbol);
-    router.push(`/product/${symbol}`);
+    router.push(`/product/${symbol.ticker}`);
+    dispatch(setCompanyHeaderData(symbol));
   };
 
   const handleLoadMoreClick = () => {
@@ -64,22 +68,22 @@ export default function Home() {
     }
   };
 
+  const { data } = useQuery({
+    queryKey: ReactQueryKeys.TopGainersAndLosers,
+    queryFn: DataService.getTopGainersAndLoosers,
+  });
+
   useEffect(() => {
-    // const {res} = useQuery(ReactQueryKeys.TopGainersAndLosers, () => DataService.getTopGainersAndLoosers());
-    // console.log(res);
-    // dispatch(setTopLosers(loser));
-    // dispatch(setTopGainers(res.top_gainers));
     DataService.getTopGainersAndLoosers()
       .then((res) => {
         const gainers = GainerLoserMapper(res.top_gainers);
         const losers = GainerLoserMapper(res.top_losers);
-        if(topgainers.length===0){
+        if (topgainers.length === 0) {
           dispatch(setTopGainers(gainers));
         }
-        if(toploser.length===0){
+        if (toploser.length === 0) {
           dispatch(setTopLosers(losers));
         }
-        
       })
       .catch((err) => {
         console.error(err);

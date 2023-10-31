@@ -1,10 +1,11 @@
+import { CompanyStock } from "@/types/CompanyInfo";
 import { GainerOrLoser } from "@/types/Stock";
 import { createSlice } from "@reduxjs/toolkit";
 
 type HomePageState = {
   lastUpdated: Date;
-  topGainers: GainerOrLoser[];
-  topLosers: GainerOrLoser[];
+  topGainers: CompanyStock[];
+  topLosers: CompanyStock[];
 };
 
 const initialState: HomePageState = {

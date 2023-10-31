@@ -1,36 +1,78 @@
 import AboutCompany from "@/components/AboutCompany";
+import CompanyNotFound from "@/components/CompanyNotFound";
 import CompanyPageHeader from "@/components/CompanyPageHeader";
 import Layout from "@/components/Layout";
 import StockGraph from "@/components/StockGraph";
+import { setCompany, setGraphData } from "@/redux/companyPageSlice";
+import { RootState } from "@/redux/store";
 import { DataService } from "@/services/dataService";
 import styles from "@/styles/ProductPage.module.css";
-import { useParams } from "next/navigation";
-import { useMemo } from "react";
-const ProductPage = () => {
-  // const params = useParams();
-  // console.log(params.compSymbol);
+import { AboutCompanyType } from "@/types/CompanyInfo";
+import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-  const compData = useMemo(async () => {
-    const data = await DataService.getCompanyInfo("slkj" as string);
-    // const res =await data.json();
-    return data;
-  }, []);
+const ProductPage = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [activeRange, setActiveRange] = useState("1D");
+  const company: AboutCompanyType | null = useSelector(
+    (state: RootState) => state.company.company
+  );
+  const companyMeta = useSelector(
+    (state: RootState) => state.company.companyHeaderData
+  );
+
+  const graphData = useSelector((state: RootState) => state.company.graphData);
+
+  const handleRangeChange = (val: string) => {
+    console.log(val);
+    setActiveRange(val);
+  };
+
+  useEffect(() => {
+    if (router.query.slug) {
+      DataService.getCompanyInfo(router.query.slug as string).then(
+        (res: AboutCompanyType) => {
+          dispatch(setCompany(res));
+        }
+      );
+
+      DataService.getCompanyStockData(router.query.slug as string, "1M")
+        .then((data) => {
+          dispatch(setGraphData(data));
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [router.query.slug]);
 
   return (
     <Layout>
-      <div className={styles.container}>
-        <CompanyPageHeader
-          price="$2334"
-          increase={false}
-          change={"40%"}
-          companyDescription="MTA, Common Stocks"
-          companyName="Facebook"
-          companySymbol="NA"
-          exchange="NSQ"
-        />
-        <StockGraph />
-        <AboutCompany />
-      </div>
+      {company ? (
+        <div>
+          {" "}
+          <div className={styles.container}>
+            <CompanyPageHeader
+              compAddress={company.Address}
+              name={company.Name}
+              companyMeta={companyMeta}
+            />
+            <StockGraph
+              activeRange={activeRange}
+              graphData={graphData}
+              symbol={company.Symbol}
+              changeActiveRange={handleRangeChange}
+              adjustment={`TIME_SERIES_WEEKLY`}
+            />
+            <AboutCompany company={company} />
+          </div>
+        </div>
+      ) : (
+        <CompanyNotFound />
+      )}
     </Layout>
   );
 };

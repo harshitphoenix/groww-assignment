@@ -1,5 +1,5 @@
 export type Graph = {
-  date: Date;
+  date: string;
   open: number;
   high: number;
   low: number;
