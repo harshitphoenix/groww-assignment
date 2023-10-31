@@ -16,10 +16,8 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { ReactQueryKeys } from "@/constants/reactQueryKeys";
 import { Spinner } from "@chakra-ui/react";
-import { setCompany, setCompanyHeaderData } from "@/redux/companyPageSlice";
+import {  setCompanyHeaderData } from "@/redux/companyPageSlice";
 import { CompanyStock } from "@/types/CompanyInfo";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const Tabs = ["Top Gainers", "Top Losers"];
 
