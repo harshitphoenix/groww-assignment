@@ -97,7 +97,7 @@ const SearchBar = () => {
         </div>
         {showSuggestions && (
           <div
-            // style={{ width: searchBarRef?.current?.clientWidth }}
+            style={{ width: searchBarRef?.current?.clientWidth }}
             ref={suggestionRef}
             className={styles.suggestions}
           >
