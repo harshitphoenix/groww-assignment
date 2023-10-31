@@ -36,7 +36,6 @@ export default function Home() {
   };
 
   const handleStockCardClick = (symbol: CompanyStock) => {
-    console.log("symbol", symbol);
     router.push(`/product/${symbol.ticker}`);
     dispatch(setCompanyHeaderData(symbol));
   };

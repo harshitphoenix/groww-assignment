@@ -88,8 +88,11 @@ export class DataService {
     const response = await fetch(
       `${BASE_URL}/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${API_KEY}`
     );
-    
+
     const data = await response.json();
+    if (data.hasOwnProperty("Information")) {
+      return data;
+    }
     return data.bestMatches.map((val: any) => {
       return {
         symbol: val["1. symbol"],
@@ -104,7 +107,7 @@ export class DataService {
     const response = await fetch(
       `${BASE_URL}/query?function=OVERVIEW&symbol=${symbol}&apikey=${API_KEY}`
     );
-    
+
     const data = await response.json();
 
     return data;

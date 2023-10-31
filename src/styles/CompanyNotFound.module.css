@@ -1,8 +1,22 @@
 .container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
+    transition: all 0.5s ease-in-out;
+    border: 1px solid var(--border-color);
+    width: 400px;
+    border-radius: 5px;
+    height: 100px;
+    margin: 140px auto;
+    align-content: center;
+    padding: auto 20px;
+    border: 1px solid var(--button-secondary);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (max-width: 668px){
+    .container{
+      width: 300px;
+      font-size: small;
+    }
 }
