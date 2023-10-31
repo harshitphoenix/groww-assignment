@@ -28,7 +28,7 @@ const Header = () => {
         <p className={styles.mbTitle}>GS</p>
       </Link>
       <SearchBar />
-      <div>
+      <div className={styles.themebtn}>
         {theme === "dark" ? (
           <FaMoon size={30} onClick={changeTheme} />
         ) : (

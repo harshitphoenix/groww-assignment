@@ -20,7 +20,9 @@
 .mbTitle{
     display: none;
 }
-
+.themebtn{
+    cursor: pointer;
+}
 @media screen and (max-width: 668px) {
     .container {
         /* flex-direction: column; */
