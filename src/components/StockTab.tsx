@@ -10,7 +10,6 @@ type StockTabProps = {
 };
 
 const StockTab = ({ activeTab, data, cardClick }: StockTabProps) => {
-  console.log(data);
     return (
     <div className={styles.container}>
       <div className={styles.itemGrid}>

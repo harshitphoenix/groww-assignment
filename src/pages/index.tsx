@@ -53,7 +53,6 @@ export default function Home() {
     } else {
       DataService.getTopGainersAndLoosers()
         .then((res) => {
-          console.log("res", res);
           const losers = GainerLoserMapper(res.top_losers);
           dispatch(setTopLosers([...losers, ...toploser]));
         })
@@ -69,7 +68,6 @@ export default function Home() {
   useEffect(() => {
     DataService.getTopGainersAndLoosers()
       .then((res) => {
-        console.log(res)
         if (res.hasOwnProperty("Information")) {
           setApiLimitReached(true);
         } else {

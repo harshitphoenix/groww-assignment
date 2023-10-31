@@ -2,15 +2,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--button-primary);
+    background-color: var(--button-secondary);
     border-radius: 30px;
     width: max-content;
     height: 2em;
     padding: 5px 10px;
 }
+
 .label {
     color: var(--text-primary);
-    /* font-size: 1.2em; */
     font-weight: 500;
     margin-right: 10px;
 }

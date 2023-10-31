@@ -3,8 +3,14 @@ import styles from "../styles/SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
 import { debounce } from "@/utils/debounceSearch";
 import { DataService, SearchSuggestion } from "@/services/dataService";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { setCompanyHeaderData } from "@/redux/companyPageSlice";
+import { CompanyStock } from "@/types/CompanyInfo";
 
 const SearchBar = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const suggestionRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLInputElement>(null);
@@ -13,7 +19,6 @@ const SearchBar = () => {
 
   const debounceSearch = debounce(() => {
     DataService.getSearchSuggestions(search).then((res) => {
-      console.log(res);
       setSuggestions(res);
     });
   }, 300);
@@ -40,6 +45,7 @@ const SearchBar = () => {
     } else {
       sessionStorage.setItem("searchSuggestions", JSON.stringify([symbol]));
     }
+    router.push(`/product/${symbol.symbol}`);
     setSuggestions([]);
     setShowSuggestions(false);
   };
@@ -66,6 +72,7 @@ const SearchBar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   return (
     <div ref={searchBarRef} className={styles.container}>
       <div className={styles.parentContainer}>
@@ -88,7 +95,7 @@ const SearchBar = () => {
             {suggestions.length === 0 && (
               <div className={styles.suggestionItems}>No results found</div>
             )}
-            {suggestions.map((val, index) => (
+            {suggestions.length>0&&suggestions.map((val, index) => (
               <div
                 onClick={() => handleSuggestionClick(val)}
                 className={styles.suggestionItems}

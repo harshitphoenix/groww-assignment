@@ -31,7 +31,6 @@ const ProductPage = () => {
   const graphData = useSelector((state: RootState) => state.company.graphData);
 
   const handleRangeChange = (val: string) => {
-    console.log(val);
     setActiveRange(val);
   };
 
