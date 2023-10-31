@@ -15,14 +15,10 @@ const queryClient = new QueryClient({
 });
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <CSSReset />
-
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </QueryClientProvider>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+    </QueryClientProvider>
   );
 }
