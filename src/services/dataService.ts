@@ -7,7 +7,7 @@ import intrday from "@/data/companyIntraDay.json";
 import { AboutCompanyType } from "@/types/CompanyInfo";
 
 const BASE_URL = "https://www.alphavantage.co";
-const API_KEY = "OS8UKBIDZP6TN0UA";
+const API_KEY = "MAXEQWOV08FATJC3";
 
 export type GainerLoserAPI = {
   change_amount: string;
