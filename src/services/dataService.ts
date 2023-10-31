@@ -18,6 +18,7 @@ export type SearchSuggestion = {
   name: string;
 };
 export class DataService {
+  
   public static async getCompanyStockData(Company: string): Promise<Graph[]> {
     const response = await fetch(
       `${BASE_URL}/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${Company}&outputsize=full&apikey=demo`
@@ -33,6 +34,7 @@ export class DataService {
     }));
     return result;
   }
+  
   public static async getTopGainersAndLoosers(): Promise<any> {
     const response = await fetch(
       `${BASE_URL}/query?function=TOP_GAINERS_LOSERS&apikey=demo&apikey=demo`

@@ -13,6 +13,8 @@ import { DataService } from "@/services/dataService";
 import { setTopGainers, setTopLosers } from "@/redux/homePageSlice";
 import { GainerLoserMapper } from "@/utils/stockGainerLoserMapper";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { ReactQueryKeys } from "@/constants/reactQueryKeys";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +22,10 @@ const Tabs = ["Top Gainers", "Top Losers"];
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<string>("Top Gainers");
-  const gainers = useSelector((state: RootState) => state.home.topGainers);
-  const loser = useSelector((state: RootState) => state.home.topLosers);
+  const topgainers = useSelector((state: RootState) => state.home.topGainers);
+  const toploser = useSelector((state: RootState) => state.home.topLosers);
 
   const handleTabSwitch = (tab: string) => {
     setLoading(true);
@@ -36,11 +38,37 @@ export default function Home() {
   };
 
   const handleLoadMoreClick = () => {
-    console.log("load more");
+    if (activeTab === "Top Gainers") {
+      DataService.getTopGainersAndLoosers()
+        .then((res) => {
+          const gainers = GainerLoserMapper(res.top_gainers);
+          dispatch(setTopGainers([...gainers, ...topgainers]));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      DataService.getTopGainersAndLoosers()
+        .then((res) => {
+          console.log("res", res);
+          const losers = GainerLoserMapper(res.top_losers);
+          dispatch(setTopLosers([...losers, ...toploser]));
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
-  
+  console.log("topgainers", topgainers);
   useEffect(() => {
+    // const {res} = useQuery(ReactQueryKeys.TopGainersAndLosers, () => DataService.getTopGainersAndLoosers());
+    // console.log(res);
+    // dispatch(setTopLosers(loser));
+    // dispatch(setTopGainers(res.top_gainers));
     DataService.getTopGainersAndLoosers()
       .then((res) => {
         console.log("res", res);
@@ -66,7 +94,7 @@ export default function Home() {
         <StockTab
           cardClick={handleStockCardClick}
           activeTab={activeTab}
-          data={activeTab === "Top Gainers" ? gainers : loser}
+          data={activeTab === "Top Gainers" ? topgainers : toploser}
         />
       )}
 
