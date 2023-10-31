@@ -64,38 +64,42 @@ const SearchBar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-    };  
-}, []);
+    };
+  }, []);
   return (
     <div ref={searchBarRef} className={styles.container}>
-      <FaSearch />
-      <input
-        onFocus={fetchFromSessionStorage}
-        value={search}
-        onChange={handleSearch}
-        type="text"
-        placeholder="Search stock & etfs"
-      />
-      {showSuggestions && (
-        <div
-          style={{ width: searchBarRef?.current?.clientWidth }}
-          ref={suggestionRef}
-          className={styles.suggestions}
-        >
-          {suggestions.length === 0 && (
-            <div className={styles.suggestionItems}>No results found</div>
-          )}
-          {suggestions.map((val, index) => (
-            <div
-              onClick={() => handleSuggestionClick(val)}
-              className={styles.suggestionItems}
-              key={`${index}-${val}`}
-            >
-              {val?.name} ({val?.symbol})
-            </div>
-          ))}
+      <div>
+        <div className={styles.searchBarContainer}>
+          <FaSearch />
+          <input
+            onFocus={fetchFromSessionStorage}
+            value={search}
+            onChange={handleSearch}
+            type="text"
+            placeholder="Search stock & etfs"
+          />
         </div>
-      )}
+        {showSuggestions && (
+          <div
+            style={{ width: searchBarRef?.current?.clientWidth }}
+            ref={suggestionRef}
+            className={styles.suggestions}
+          >
+            {suggestions.length === 0 && (
+              <div className={styles.suggestionItems}>No results found</div>
+            )}
+            {suggestions.map((val, index) => (
+              <div
+                onClick={() => handleSuggestionClick(val)}
+                className={styles.suggestionItems}
+                key={`${index}-${val}`}
+              >
+                {val?.name} ({val?.symbol})
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
