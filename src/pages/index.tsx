@@ -68,10 +68,6 @@ export default function Home() {
     }
   };
 
-  const { data } = useQuery({
-    queryKey: ReactQueryKeys.TopGainersAndLosers,
-    queryFn: DataService.getTopGainersAndLoosers,
-  });
 
   useEffect(() => {
     DataService.getTopGainersAndLoosers()

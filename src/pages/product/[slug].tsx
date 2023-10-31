@@ -47,7 +47,7 @@ const ProductPage = () => {
         }
       );
 
-      DataService.getCompanyStockData(router.query.slug as string, "1M")
+      DataService.getCompanyStockData(router.query.slug as string, "1D")
         .then((data) => {
           dispatch(setGraphData(data));
           if(JSON.stringify(data).includes("Requests")){

@@ -34,7 +34,7 @@ const AboutCompany = ({ company, logo }: AboutCompanyProps) => {
             label="MarketCapitalization"
             value={company?.MarketCapitalization}
           />
-          <AboutMeta label="EVToRevenue" value={company?.EVToRevenue} />
+          <AboutMeta label="EVToRevenue" value={`$ ${company?.EVToRevenue}`} />
           <AboutMeta label="P/E Ratio" value={company?.PERatio} />
         </div>
       </div>
