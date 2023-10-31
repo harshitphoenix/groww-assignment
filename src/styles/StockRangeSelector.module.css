@@ -23,6 +23,16 @@
     color: var(--background);
     opacity: 0.2;
 }
+.filterBtnActive{
+    background-color: var(--foreground);
+    color: var(--background);
+    opacity: 0.4;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+
+}
 @media screen and (max-width: 668px) {
     .container {
         /* padding: 0; */

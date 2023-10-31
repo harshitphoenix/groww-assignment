@@ -9,13 +9,16 @@ type StockGraphRangeSelectorProps = {
 const StockGraphRangeSelector = ({
   onChange,
   range,
+  activeRange,
 }: StockGraphRangeSelectorProps) => {
   return (
     <div className={styles.container}>
       {range.length > 0 &&
         range.map((val, index) => (
           <button
-            className={styles.filterBtn}
+            className={
+              activeRange === val ? styles.filterBtnActive : styles.filterBtn
+            }
             key={`${index}-${val}`}
             onClick={() => onChange && onChange(val)}
           >
