@@ -3,6 +3,9 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
+import { ColorModeScript } from "@chakra-ui/color-mode";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -12,10 +15,14 @@ const queryClient = new QueryClient({
 });
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
-    </QueryClientProvider>
+    <ChakraProvider>
+      <CSSReset />
+
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </QueryClientProvider>
+    </ChakraProvider>
   );
 }

@@ -8,11 +8,13 @@ import { RootState } from "@/redux/store";
 import { DataService } from "@/services/dataService";
 import styles from "@/styles/ProductPage.module.css";
 import { AboutCompanyType } from "@/types/CompanyInfo";
+import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductPage = () => {
+  const toast = useToast();
   const router = useRouter();
   const dispatch = useDispatch();
   const [activeRange, setActiveRange] = useState("1D");
@@ -34,6 +36,13 @@ const ProductPage = () => {
     if (router.query.slug) {
       DataService.getCompanyInfo(router.query.slug as string).then(
         (res: AboutCompanyType) => {
+          if(JSON.stringify(res).includes("Requests")){
+            toast({
+              status:'error',
+              title:"API Limit Reached",
+              isClosable:true
+            })
+          }
           dispatch(setCompany(res));
         }
       );
@@ -41,7 +50,13 @@ const ProductPage = () => {
       DataService.getCompanyStockData(router.query.slug as string, "1M")
         .then((data) => {
           dispatch(setGraphData(data));
-          console.log(data);
+          if(JSON.stringify(data).includes("Requests")){
+            toast({
+              status:'error',
+              title:"API Limit Reached",
+              isClosable:true
+            })
+          }
         })
         .catch((err) => {
           console.log(err);
