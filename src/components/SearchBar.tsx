@@ -101,7 +101,7 @@ const SearchBar = () => {
           >
             {apiLimitReached && (
               <div className={styles.apiLimitReached}>
-                We've reached our API limit for the day.
+                We have reached our API limit for the day.
               </div>
             )}
             {!apiLimitReached && suggestions.length === 0 && (
