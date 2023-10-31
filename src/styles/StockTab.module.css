@@ -1,5 +1,7 @@
 .container {
     width: 100%;
+    padding: 0 20%;
+    /* margin-top: 200px; */
 }
 
 .itemGrid {
@@ -7,7 +9,14 @@
     width: 100%;
     /* border: 1px solid green; */
     grid-template-columns: repeat(4, 1fr);
-    /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 1rem;
     /* margin: 10px 0; */
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0 10%;
+    }
+
 }

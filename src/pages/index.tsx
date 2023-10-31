@@ -35,6 +35,11 @@ export default function Home() {
     router.push(`/product/${symbol}`);
   };
 
+  const handleLoadMoreClick = () => {
+    console.log("load more");
+  };
+
+  
   useEffect(() => {
     DataService.getTopGainersAndLoosers()
       .then((res) => {
@@ -61,11 +66,11 @@ export default function Home() {
         <StockTab
           cardClick={handleStockCardClick}
           activeTab={activeTab}
-          data={activeTab === "Top Gainer" ? gainers : loser}
+          data={activeTab === "Top Gainers" ? gainers : loser}
         />
       )}
 
-      <LoadMoreButton onClick={() => console.log()} />
+      <LoadMoreButton onClick={handleLoadMoreClick} />
     </Layout>
   );
 }

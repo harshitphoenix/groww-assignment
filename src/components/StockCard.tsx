@@ -9,19 +9,23 @@ type StockCardProps = {
   onCardCliked: () => void;
 };
 const StockCard = ({ change, name, price, onCardCliked }: StockCardProps) => {
+  const isPriceIncreased = change.includes("-");
   return (
     <div className={styles.container} onClick={onCardCliked}>
       <div className={styles.cardTop}>
         <div className={styles.compLogo}>
           <FaGoogle />
         </div>
-
-        <div className={styles.bottom}>
-          <PriceStateIndicator change={change} increase={true} price={price} />
-        </div>
+        <p>{name}</p>
+      </div>
+      <div className={styles.bottom}>
+        <PriceStateIndicator
+          change={change}
+          increase={!isPriceIncreased}
+          price={price}
+        />
       </div>
       {/* <p>{tickerToName[name]}</p> */}
-      <p>{name}</p>
     </div>
   );
 };

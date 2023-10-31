@@ -24,7 +24,8 @@ const Header = () => {
   return (
     <div className={styles.container}>
       <Link href={"/"}>
-        <h1>Groww Stonks</h1>
+        <p className={styles.title}>Groww Stonks</p>
+        <p className={styles.mbTitle}>GS</p>
       </Link>
       <SearchBar />
       <div>

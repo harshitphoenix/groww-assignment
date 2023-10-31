@@ -13,7 +13,7 @@ const PriceStateIndicator = ({
 }: PriceStateIndicatorProps) => {
   return (
     <div className={styles.container}>
-      <p>{price}</p>
+      <p>$ {price}</p>
       {increase === true ? (
         <div className={styles.increasePrice}>
           <span>+{change}</span>
@@ -21,7 +21,7 @@ const PriceStateIndicator = ({
         </div>
       ) : (
         <div className={styles.decreasePrice}>
-          <span>-{change}</span>
+          <span>{change}</span>
           <FaArrowAltCircleDown />
         </div>
       )}

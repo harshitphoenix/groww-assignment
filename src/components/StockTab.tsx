@@ -1,13 +1,16 @@
 import { GainerOrLoser } from "@/types/Stock";
 import StockCard from "./StockCard";
 import styles from "@/styles/StockTab.module.css";
+
 type StockTabProps = {
   activeTab: string;
   data: GainerOrLoser[];
   cardClick: (val: string) => void;
 };
+
 const StockTab = ({ activeTab, data, cardClick }: StockTabProps) => {
-  return (
+  console.log(data);
+    return (
     <div className={styles.container}>
       <div className={styles.itemGrid}>
         {data.length > 0 &&
