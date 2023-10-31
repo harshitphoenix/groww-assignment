@@ -31,7 +31,7 @@ export class DataService {
 
     if (adjustment === "1D") {
       response = await fetch(
-        `${BASE_URL}/query?function=TIME_SERIES_INTRADAY&symbol=${Company}&outputsize=full&apikey=${API_KEY}`
+        `${BASE_URL}/query?function=TIME_SERIES_INTRADAY&symbol=${Company}&interval=5min&outputsize=full&apikey=${API_KEY}`
       );
 
       const data = (await response.json())["Time Series (5min)"];

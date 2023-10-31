@@ -40,7 +40,7 @@ const StockGraph = ({ adjustment, symbol, graphData, activeRange, changeActiveRa
     <div className={styles.container}>
       <CChartLine
         className={styles.chart}
-        // type="line"
+        typeof="line"
         data={{
           labels: xAxes,
           datasets: [
