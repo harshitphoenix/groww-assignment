@@ -104,7 +104,7 @@ export default function Home() {
         </div>
       ) : (topgainers.length === 0 && toploser.length === 0) ||
         apiLimitReached ? (
-        <ErrorMessage msg="Sorry, but we've reached our API limit for the day. We appreciate your enthusiasm! Please check back tomorrow to access our services again" />
+        <ErrorMessage msg="Sorry, but we've reached our API limit for the day. We appreciate your enthusiasm! Please check back tomorrow to access our services again." />
       ) : (
         <>
           <StockTab

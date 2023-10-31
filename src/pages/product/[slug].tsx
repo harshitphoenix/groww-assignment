@@ -63,7 +63,6 @@ const ProductPage = () => {
     }
   }, [router.query.slug]);
 
-  console.log(company);
   return (
     <Layout>
       {loading ? (
@@ -98,7 +97,7 @@ const ProductPage = () => {
           </div>
         </div>
       ) : apiLimitReached ? (
-        <ErrorMessage msg="Sorry, but we've reached our API limit for the day. We appreciate your enthusiasm! Please check back tomorrow to access our services again" />
+        <ErrorMessage msg="Sorry, but we've reached our API limit for the day. We appreciate your enthusiasm! Please check back tomorrow to access our services again." />
       ) : (
         <CompanyNotFound />
       )}

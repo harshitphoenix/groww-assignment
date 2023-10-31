@@ -12,6 +12,7 @@ const SearchBar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+  const [apiLimitReached, setApiLimitReached] = useState(false);
   const suggestionRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLInputElement>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -19,6 +20,14 @@ const SearchBar = () => {
 
   const debounceSearch = debounce(() => {
     DataService.getSearchSuggestions(search).then((res) => {
+      console.log(res);
+      if (res.hasOwnProperty("Information")) {
+        setSuggestions([
+          { symbol: "", name: "We've reached our API limit for the day." },
+        ]);
+        setApiLimitReached(true);
+        return;
+      }
       setSuggestions(res);
     });
   }, 300);
@@ -88,22 +97,23 @@ const SearchBar = () => {
         </div>
         {showSuggestions && (
           <div
-            style={{ width: searchBarRef?.current?.clientWidth }}
+            // style={{ width: searchBarRef?.current?.clientWidth }}
             ref={suggestionRef}
             className={styles.suggestions}
           >
             {suggestions.length === 0 && (
               <div className={styles.suggestionItems}>No results found</div>
             )}
-            {suggestions.length>0&&suggestions.map((val, index) => (
-              <div
-                onClick={() => handleSuggestionClick(val)}
-                className={styles.suggestionItems}
-                key={`${index}-${val}`}
-              >
-                {val?.name} ({val?.symbol})
-              </div>
-            ))}
+            {suggestions.length > 0 &&
+              suggestions.map((val, index) => (
+                <div
+                  onClick={() => handleSuggestionClick(val)}
+                  className={styles.suggestionItems}
+                  key={`${index}-${val}`}
+                >
+                  {val?.name} {val?.symbol?(val?.symbol):""}
+                </div>
+              ))}
           </div>
         )}
       </div>
