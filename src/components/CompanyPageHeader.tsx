@@ -5,11 +5,19 @@ import { FaAppStore, FaFacebook } from "react-icons/fa";
 import { CompanyPageHeader } from "@/types/CompanyInfo";
 type CompanyPageHeaderProps = {
   companyMeta?: CompanyPageHeader;
-  name:string;
-  compAddress?:string
+  name: string;
+  compAddress?: string;
+  price?: string;
+  changePercent?: string;
 };
 
-const CompanyPageHeader = ({ companyMeta, name, compAddress }: CompanyPageHeaderProps) => {
+const CompanyPageHeader = ({
+  companyMeta,
+  name,
+  compAddress,
+  changePercent,
+  price,
+}: CompanyPageHeaderProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
@@ -25,9 +33,9 @@ const CompanyPageHeader = ({ companyMeta, name, compAddress }: CompanyPageHeader
       </div>
       <div>
         <PriceStateIndicator
-          price={companyMeta?.price}
+          price={companyMeta?.price??price}
           increase={!companyMeta?.changePercent.includes("-")}
-          change={companyMeta?.changePercent}
+          change={companyMeta?.changePercent??changePercent}
         />
       </div>
     </div>

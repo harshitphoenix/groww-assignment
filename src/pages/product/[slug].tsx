@@ -63,6 +63,7 @@ const ProductPage = () => {
     }
   }, [router.query.slug]);
 
+  console.log(company);
   return (
     <Layout>
       {loading ? (
@@ -83,6 +84,8 @@ const ProductPage = () => {
               compAddress={company.Address}
               name={company.Name}
               companyMeta={companyMeta}
+              price={company.BookValue}
+              changePercent={company.Beta}
             />
             <StockGraph
               activeRange={activeRange}
